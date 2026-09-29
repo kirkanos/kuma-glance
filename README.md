@@ -17,7 +17,7 @@ Unofficial plugin, not affiliated with the Uptime Kuma project.
 * **Dial Monitor** (Stream Deck + / + XL): turn the dial to browse the monitors, push or tap to switch the value (or pause / resume). The touch strip shows name, value and heartbeats.
 * **Tag Summary** key: pick an Uptime Kuma tag and see how many of its monitors are up or down. The key turns red as soon as one is down.
   * Pressing it opens a **tag folder**: a read-only profile with one key per monitor of that tag. Pressing a monitor opens its page in Uptime Kuma. With more monitors than keys, the last key pages through them. A Back key returns to the previous profile.
-  * Tag folders exist for the Stream Deck (15 keys), Stream Deck Neo and Stream Deck + XL (see [docs/TAG_FOLDERS.md](docs/TAG_FOLDERS.md)).
+  * Tag folders exist for Stream Deck, Stream Deck Mini, Stream Deck XL, Stream Deck +, Stream Deck Neo, Stream Deck + XL and Corsair Galleon 100 SD (see [docs/TAG_FOLDERS.md](docs/TAG_FOLDERS.md)).
 * Live updates over the Uptime Kuma Socket.IO interface, the same one the Uptime Kuma web UI uses. Works with Uptime Kuma 1.x and 2.x.
 
 ## Installation

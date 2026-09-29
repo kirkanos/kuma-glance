@@ -33,8 +33,14 @@ describe("layoutSlots", () => {
 describe("tagFolderProfile", () => {
   it("maps the supported device types", () => {
     expect(tagFolderProfile(0)).toBe("TagFolderStandard");
+    expect(tagFolderProfile(1)).toBe("TagFolderMini");
+    expect(tagFolderProfile(2)).toBe("TagFolderXL");
+    expect(tagFolderProfile(7)).toBe("TagFolderPlus");
     expect(tagFolderProfile(9)).toBe("TagFolderNeo");
+    expect(tagFolderProfile(12)).toBe("TagFolderGalleon");
     expect(tagFolderProfile(13)).toBe("TagFolderPlusXL");
-    expect(tagFolderProfile(7)).toBeUndefined();
+    // No profile for devices with a user-defined layout (Mobile, Virtual).
+    expect(tagFolderProfile(3)).toBeUndefined();
+    expect(tagFolderProfile(11)).toBeUndefined();
   });
 });

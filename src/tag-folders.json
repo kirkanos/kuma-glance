@@ -9,6 +9,34 @@
     "format": 2
   },
   {
+    "profile": "TagFolderMini",
+    "device": "Stream Deck Mini (6 keys)",
+    "deviceType": 1,
+    "model": "20GAI9901",
+    "columns": 3,
+    "rows": 2,
+    "format": 2
+  },
+  {
+    "profile": "TagFolderXL",
+    "device": "Stream Deck XL (32 keys)",
+    "deviceType": 2,
+    "model": "20GAT9901",
+    "columns": 8,
+    "rows": 4,
+    "format": 2
+  },
+  {
+    "profile": "TagFolderPlus",
+    "device": "Stream Deck + (8 keys, 4 dials)",
+    "deviceType": 7,
+    "model": "20GBD9901",
+    "columns": 4,
+    "rows": 2,
+    "encoders": 4,
+    "format": 3
+  },
+  {
     "profile": "TagFolderNeo",
     "device": "Stream Deck Neo (8 keys)",
     "deviceType": 9,
@@ -16,6 +44,16 @@
     "columns": 4,
     "rows": 2,
     "format": 2
+  },
+  {
+    "profile": "TagFolderGalleon",
+    "device": "Corsair Galleon 100 SD (12 keys, 2 dials)",
+    "deviceType": 12,
+    "model": "GRETSCH",
+    "columns": 3,
+    "rows": 4,
+    "encoders": 2,
+    "format": 3
   },
   {
     "profile": "TagFolderPlusXL",

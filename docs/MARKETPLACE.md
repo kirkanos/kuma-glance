@@ -62,7 +62,8 @@ Gallery images are 1920 × 960 PNG, rendered from the real key and dial renderer
 
 | Use | File |
 | --- | --- |
-| Icon (PNG, transparent) | [icon/icon-256.png](icon/icon-256.png), [icon/icon-512.png](icon/icon-512.png), [icon/icon-1024.png](icon/icon-1024.png) |
+| Icon for the Maker Console (288 × 288) | [icon/icon-288.png](icon/icon-288.png) |
+| Icon, other sizes (PNG, transparent) | [icon/icon-256.png](icon/icon-256.png), [icon/icon-512.png](icon/icon-512.png), [icon/icon-1024.png](icon/icon-1024.png) |
 | Thumbnail | [gallery/1-overview.png](gallery/1-overview.png) |
 | Gallery 1 | [gallery/1-overview.png](gallery/1-overview.png) |
 | Gallery 2 | [gallery/2-tag-folder.png](gallery/2-tag-folder.png) |

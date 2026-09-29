@@ -179,7 +179,7 @@ write("gallery/4-dials.png", dials());
 
 // Plugin icon as PNG in common sizes (e.g. for the Marketplace listing).
 const iconSvg = fs.readFileSync(path.resolve(import.meta.dirname, "..", "assets", "icon.svg"));
-for (const size of [256, 512, 1024]) {
+for (const size of [256, 288, 512, 1024]) {
   const out = path.join(docs, "icon", `icon-${size}.png`);
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, new Resvg(iconSvg, { fitTo: { mode: "width", value: size } }).render().asPng());

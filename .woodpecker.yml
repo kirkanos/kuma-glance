@@ -1,0 +1,41 @@
+# Woodpecker CI pipeline (Linux) — builds, tests and packages the Stream Deck
+# plugin and publishes it as a downloadable release asset.
+#
+# Packaging uses the official Elgato CLI (`streamdeck pack`), which runs on
+# Linux and validates the manifest.
+#
+# Runs on:
+#   - a tag like v2.0.0  -> builds + creates a release with the plugin attached
+#   - manual trigger     -> builds (release step is skipped)
+
+when:
+  - event: tag
+    ref: refs/tags/v*
+  - event: manual
+
+steps:
+  - name: build
+    image: node:24
+    environment:
+      # Plugin version = tag without the leading "v" (manual runs use package.json)
+      PLUGIN_VERSION: ${CI_COMMIT_TAG##v}
+    commands:
+      # zip is not in the base image; scripts/gen-profiles.mjs needs it
+      - apt-get update && apt-get install -y --no-install-recommends zip
+      - npm ci
+      - npm run typecheck
+      - npm test
+      - npm run pack
+      - ls -la Release
+
+  # Publishes to the forge Woodpecker is connected to (Gitea/Forgejo/GitHub).
+  # Requires a secret named `release_token` with repo/release write scope.
+  - name: release
+    image: woodpeckerci/plugin-release
+    settings:
+      files: Release/*.streamDeckPlugin
+      title: ${CI_COMMIT_TAG}
+      api_key:
+        from_secret: release_token
+    when:
+      - event: tag

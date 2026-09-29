@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+/dist
+/Release/*.streamDeckPlugin
+
+# Stream Deck plugin logs (written into the linked dist folder)
+logs/
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.sw?

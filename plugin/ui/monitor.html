@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitor settings</title>
+    <script src="sdpi-components.js"></script>
+    <script src="connection.js"></script>
+    <link rel="stylesheet" href="pi.css" />
+  </head>
+  <body>
+    <div id="kuma-connection"></div>
+
+    <div class="requires-login" hidden>
+      <sdpi-item label="Monitor">
+        <sdpi-select setting="monitorId" datasource="getMonitors" hot-reload placeholder="Select a monitor" loading="Loading monitors…"></sdpi-select>
+      </sdpi-item>
+
+      <sdpi-item label="Value">
+        <sdpi-select setting="metric" default="avgPing">
+          <option value="avgPing">Average ping (24h)</option>
+          <option value="ping">Current ping</option>
+          <option value="uptime24h">Uptime 24 hours</option>
+          <option value="uptime30d">Uptime 30 days</option>
+        </sdpi-select>
+      </sdpi-item>
+
+      <sdpi-item label="On press">
+        <sdpi-select setting="action" default="nextMetric">
+          <option value="nextMetric">Show next value</option>
+          <option value="togglePause">Pause / resume monitor</option>
+        </sdpi-select>
+      </sdpi-item>
+
+      <p class="hint">
+        The monitor name is drawn on the key. If you set your own title, the name is left out.
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+[
+  {
+    "profile": "TagFolderStandard",
+    "device": "Stream Deck (15 keys)",
+    "deviceType": 0,
+    "model": "20GAA9902",
+    "columns": 5,
+    "rows": 3,
+    "format": 2
+  },
+  {
+    "profile": "TagFolderNeo",
+    "device": "Stream Deck Neo (8 keys)",
+    "deviceType": 9,
+    "model": "20GBJ9901",
+    "columns": 4,
+    "rows": 2,
+    "format": 2
+  },
+  {
+    "profile": "TagFolderPlusXL",
+    "device": "Stream Deck + XL (36 keys, 6 dials)",
+    "deviceType": 13,
+    "model": "20GBX9901",
+    "columns": 9,
+    "rows": 4,
+    "encoders": 6,
+    "format": 3
+  }
+]

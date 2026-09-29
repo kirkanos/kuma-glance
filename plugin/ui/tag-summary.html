@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tag summary settings</title>
+    <script src="sdpi-components.js"></script>
+    <script src="connection.js"></script>
+    <link rel="stylesheet" href="pi.css" />
+  </head>
+  <body>
+    <div id="kuma-connection"></div>
+
+    <div class="requires-login" hidden>
+      <sdpi-item label="Tag">
+        <sdpi-select setting="tag" datasource="getTags" hot-reload placeholder="Select a tag" loading="Loading tags…"></sdpi-select>
+      </sdpi-item>
+
+      <p class="hint">
+        Shows how many monitors with this tag are up or down. Press the key to open a folder with one key per
+        monitor; with more monitors than keys, the last key pages through them.
+      </p>
+    </div>
+  </body>
+</html>

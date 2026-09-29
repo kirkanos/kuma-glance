@@ -1,0 +1,128 @@
+{
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+  "UUID": "com.kirkanos.kuma-glance",
+  "Name": "Kuma Glance",
+  "Version": "0.0.0.0",
+  "Author": "Andreas Hacker",
+  "Description": "Your Uptime Kuma monitors at a glance: status, ping and uptime per key, tag summaries and tag folders. Unofficial plugin, not affiliated with the Uptime Kuma project.",
+  "URL": "https://github.com/kirkanos/kuma-glance",
+  "Icon": "images/icon",
+  "Category": "Kuma Glance",
+  "CategoryIcon": "images/category",
+  "CodePath": "bin/plugin.js",
+  "SDKVersion": 3,
+  "Nodejs": {
+    "Version": "24",
+    "Debug": "enabled"
+  },
+  "Software": {
+    "MinimumVersion": "7.1"
+  },
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "12"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Actions": [
+    {
+      "UUID": "com.kirkanos.kuma-glance.monitor",
+      "Name": "Monitor",
+      "Icon": "images/actions/monitor",
+      "Tooltip": "Status, ping and uptime of one monitor; press to switch the value or to pause/resume",
+      "PropertyInspectorPath": "ui/monitor.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "SupportedInMultiActions": false,
+      "States": [
+        {
+          "Image": "images/key",
+          "TitleAlignment": "top",
+          "FontSize": 10
+        }
+      ]
+    },
+    {
+      "UUID": "com.kirkanos.kuma-glance.dial-monitor",
+      "Name": "Dial Monitor",
+      "Icon": "images/actions/dial",
+      "Tooltip": "Browse your monitors with the dial and show their status on the touch strip",
+      "PropertyInspectorPath": "ui/monitor.html",
+      "Controllers": [
+        "Encoder"
+      ],
+      "Encoder": {
+        "layout": "layouts/dial.json",
+        "Icon": "images/actions/dial",
+        "TriggerDescription": {
+          "Rotate": "Next / previous monitor",
+          "Push": "Next value or pause / resume"
+        }
+      },
+      "SupportedInMultiActions": false,
+      "States": [
+        {
+          "Image": "images/key"
+        }
+      ]
+    },
+    {
+      "UUID": "com.kirkanos.kuma-glance.tag-summary",
+      "Name": "Tag Summary",
+      "Icon": "images/actions/tag",
+      "Tooltip": "Up/down summary of all monitors carrying a tag; press to open the tag folder",
+      "PropertyInspectorPath": "ui/tag-summary.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "SupportedInMultiActions": false,
+      "States": [
+        {
+          "Image": "images/key",
+          "TitleAlignment": "top",
+          "FontSize": 10
+        }
+      ]
+    },
+    {
+      "UUID": "com.kirkanos.kuma-glance.tag-slot",
+      "Name": "Tag Slot",
+      "Icon": "images/actions/folder",
+      "Tooltip": "Internal: a monitor slot inside a tag folder (filled automatically)",
+      "Controllers": [
+        "Keypad"
+      ],
+      "VisibleInActionsList": false,
+      "SupportedInMultiActions": false,
+      "States": [
+        {
+          "Image": "images/key",
+          "TitleAlignment": "top",
+          "FontSize": 10
+        }
+      ]
+    },
+    {
+      "UUID": "com.kirkanos.kuma-glance.tag-back",
+      "Name": "Tag Folder Back",
+      "Icon": "images/actions/folder",
+      "Tooltip": "Internal: return from a tag folder to the previous profile",
+      "Controllers": [
+        "Keypad"
+      ],
+      "VisibleInActionsList": false,
+      "SupportedInMultiActions": false,
+      "States": [
+        {
+          "Image": "images/key",
+          "TitleAlignment": "middle"
+        }
+      ]
+    }
+  ]
+}

@@ -108,7 +108,45 @@ if (isWatch) {
   });
 } else {
   const bundle = await rollup(config);
-  await bundle.write(config.output);
+  const { output } = await bundle.write(config.output);
   await bundle.close();
   console.log("bundled bin/plugin.js");
+  writeThirdPartyNotices(Object.keys(output[0].modules));
+}
+
+/**
+ * Writes THIRD_PARTY_NOTICES.txt with the license of every npm package that
+ * ended up in bin/plugin.js, plus the vendored sdpi-components (ui/).
+ */
+function writeThirdPartyNotices(moduleIds) {
+  const packages = new Map();
+  for (const rawId of moduleIds) {
+    // Rollup prefixes virtual helper modules (e.g. from the commonjs plugin) with \0.
+    const id = rawId.replace(/^\0/, "").replace(/\?.*$/, "");
+    const match = id.match(/^(.*node_modules[\\/]((?:@[^\\/]+[\\/])?[^\\/]+))/);
+    if (match) {
+      packages.set(match[2].replace(/\\/g, "/"), match[1]);
+    }
+  }
+
+  const sections = [...packages.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([name, dir]) => {
+      const meta = readJson(path.join(dir, "package.json"));
+      // Older packages use the deprecated "licenses" array instead of "license".
+      meta.license ??= meta.licenses?.map((l) => l.type).join(" OR ");
+      const file = fs.readdirSync(dir).find((f) => /^licen[cs]e(\.|$)/i.test(f));
+      const text = file ? fs.readFileSync(path.join(dir, file), "utf8").trim() : `License: ${meta.license}`;
+      return `${name} ${meta.version} (${meta.license})\n\n${text}`;
+    });
+
+  sections.push(fs.readFileSync(path.join(root, "scripts", "vendored-notices.txt"), "utf8").trim());
+
+  const header =
+    "Kuma Glance includes the following third-party software.\n" +
+    "The license of Kuma Glance itself is in LICENSE.";
+  const rule = "\n\n" + "-".repeat(78) + "\n\n";
+  fs.writeFileSync(path.join(outDir, "THIRD_PARTY_NOTICES.txt"), header + rule + sections.join(rule) + "\n");
+  fs.copyFileSync(path.join(root, "LICENSE"), path.join(outDir, "LICENSE"));
+  console.log(`wrote THIRD_PARTY_NOTICES.txt (${sections.length} components)`);
 }

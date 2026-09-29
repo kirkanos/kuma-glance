@@ -61,6 +61,12 @@ GitHub Actions builds and tests every push (`.github/workflows/ci.yml`) and publ
 
 The plugin only connects to the Uptime Kuma server you configure; there is no telemetry. See [PRIVACY.md](PRIVACY.md).
 
+## License
+
+Kuma Glance is licensed under the [Functional Source License, Version 1.1, MIT Future License](LICENSE) (FSL-1.1-MIT): you may use, modify and share it for any purpose except offering a competing product. Two years after each release, that release becomes available under the MIT license.
+
+The plugin package includes `THIRD_PARTY_NOTICES.txt` with the licenses of the bundled libraries.
+
 ## Troubleshooting
 
 * **Keys show "Offline":** check the URL in the key settings and that Uptime Kuma is reachable from this computer.

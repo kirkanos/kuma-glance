@@ -1,7 +1,8 @@
 {
   "name": "kuma-glance",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "private": true,
+  "license": "FSL-1.1-MIT",
   "type": "module",
   "description": "Kuma Glance: your Uptime Kuma monitors at a glance on the Stream Deck.",
   "scripts": {

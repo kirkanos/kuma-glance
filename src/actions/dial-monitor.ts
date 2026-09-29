@@ -13,6 +13,7 @@ import { PLUGIN_ID } from "../config";
 import { kuma } from "../kuma/service";
 import { dialCanvas, dialMessage } from "../render/dial";
 import { displayValue, nextMetric } from "../render/values";
+import { updates } from "../throttle";
 import type { MonitorSettings } from "./monitor";
 
 /** A dial browsing through all monitors; the touch strip shows the selected one. */
@@ -27,6 +28,7 @@ export class DialMonitorAction extends SingletonAction<MonitorSettings> {
 
   override onWillDisappear(ev: WillDisappearEvent<MonitorSettings>): void {
     this.#settings.delete(ev.action.id);
+    updates.forget(ev.action.id);
   }
 
   override onDidReceiveSettings(ev: DidReceiveSettingsEvent<MonitorSettings>): Promise<void> {
@@ -99,6 +101,6 @@ export class DialMonitorAction extends SingletonAction<MonitorSettings> {
     } else {
       canvas = dialCanvas({ title: monitor.name, ...displayValue(monitor, settings.metric), beats: monitor.beats });
     }
-    await dial.setFeedback({ canvas });
+    updates.update(dial.id, canvas, (value) => dial.setFeedback({ canvas: value }));
   }
 }

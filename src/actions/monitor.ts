@@ -12,6 +12,7 @@ import { PLUGIN_ID } from "../config";
 import { kuma } from "../kuma/service";
 import { messageKey, monitorKey } from "../render/keys";
 import { displayValue, type Metric, nextMetric } from "../render/values";
+import { showImage, updates } from "../throttle";
 
 export type MonitorSettings = {
   monitorId?: string;
@@ -51,6 +52,7 @@ export class MonitorAction extends SingletonAction<MonitorSettings> {
   override onWillDisappear(ev: WillDisappearEvent<MonitorSettings>): void {
     this.#settings.delete(ev.action.id);
     this.#hasTitle.delete(ev.action.id);
+    updates.forget(ev.action.id);
   }
 
   override onDidReceiveSettings(ev: DidReceiveSettingsEvent<MonitorSettings>): Promise<void> {
@@ -98,11 +100,12 @@ export class MonitorAction extends SingletonAction<MonitorSettings> {
     const unavailable = unavailableImage(settings.monitorId);
     const monitor = kuma.monitor(settings.monitorId);
     if (unavailable || !monitor) {
-      await key.setImage(unavailable);
+      showImage(key, unavailable);
       return;
     }
 
-    await key.setImage(
+    showImage(
+      key,
       monitorKey({
         name: this.#hasTitle.get(actionId) ? undefined : monitor.name,
         ...displayValue(monitor, settings.metric),

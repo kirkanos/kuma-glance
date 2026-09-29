@@ -11,6 +11,7 @@ import { countByStatus } from "../kuma/model";
 import { kuma } from "../kuma/service";
 import { messageKey, tagSummaryKey } from "../render/keys";
 import { openFolders, tagFolderProfile } from "../tag-folder";
+import { showImage, updates } from "../throttle";
 
 export type TagSummarySettings = { tag?: string };
 
@@ -26,6 +27,7 @@ export class TagSummaryAction extends SingletonAction<TagSummarySettings> {
 
   override onWillDisappear(ev: WillDisappearEvent<TagSummarySettings>): void {
     this.#settings.delete(ev.action.id);
+    updates.forget(ev.action.id);
   }
 
   override onDidReceiveSettings(ev: DidReceiveSettingsEvent<TagSummarySettings>): Promise<void> {
@@ -69,13 +71,13 @@ export class TagSummaryAction extends SingletonAction<TagSummarySettings> {
     }
 
     if (kuma.state === "unconfigured") {
-      await key.setImage(messageKey("Log in", "see settings"));
+      showImage(key, messageKey("Log in", "see settings"));
     } else if (!tag) {
-      await key.setImage(messageKey("Select", "a tag"));
+      showImage(key, messageKey("Select", "a tag"));
     } else if (!kuma.isConnected) {
-      await key.setImage(messageKey("Offline", kuma.state === "error" ? "check login" : "connecting…"));
+      showImage(key, messageKey("Offline", kuma.state === "error" ? "check login" : "connecting…"));
     } else {
-      await key.setImage(tagSummaryKey(tag, countByStatus(kuma.monitors(), tag)));
+      showImage(key, tagSummaryKey(tag, countByStatus(kuma.monitors(), tag)));
     }
   }
 }

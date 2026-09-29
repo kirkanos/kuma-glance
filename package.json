@@ -1,6 +1,6 @@
 {
   "name": "kuma-glance",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
   "type": "module",
   "description": "Kuma Glance: your Uptime Kuma monitors at a glance on the Stream Deck.",

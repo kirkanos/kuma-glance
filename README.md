@@ -50,12 +50,16 @@ npm run link:dev       # build + link into Stream Deck (once)
 npm run watch:dev      # rebuild and restart the plugin on every change
 
 npm run pack           # Release/com.kirkanos.kuma-glance.streamDeckPlugin
-npm run preview        # docs/preview.png
+npm run preview        # docs/preview.png and docs/gallery/*.png
 ```
 
 Linking and restarting need the Stream Deck developer mode (`npx streamdeck dev`, then restart the Stream Deck app once). Plugin logs are written to `dist/<plugin id>.sdPlugin/logs/`.
 
-Releases are built by Woodpecker CI for tags like `v2.0.0`.
+GitHub Actions builds and tests every push (`.github/workflows/ci.yml`) and publishes a release with the packed plugin for tags like `v2.2.0` (`.github/workflows/release.yml`).
+
+## Privacy
+
+The plugin only connects to the Uptime Kuma server you configure; there is no telemetry. See [PRIVACY.md](PRIVACY.md).
 
 ## Troubleshooting
 

@@ -67,7 +67,11 @@ export function wrapText(text: string, maxChars: number, maxLines: number): stri
       }
     }
     if (cut <= 0) {
-      cut = maxChars;
+      // A single long word: hyphenate it instead of cutting it off anywhere.
+      cut = maxChars - 1;
+      lines.push(`${rest.slice(0, cut)}-`);
+      rest = rest.slice(cut);
+      continue;
     }
     lines.push(rest.slice(0, cut).trim());
     rest = rest.slice(cut).trim();

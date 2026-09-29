@@ -25,10 +25,12 @@ export function dialCanvas(d: DialCanvas): string {
 
   const dot = `<circle cx="16" cy="19" r="5" fill="${d.status === "down" ? "#FFFFFF" : color}"/>`;
   const title = text(truncate(d.title, 18), { x: 28, y: 25, size: 17, anchor: "start" });
+  // The value must end before the heartbeat strip (x = 122): shrink long values.
+  const width = d.value.length + (d.unit ? d.unit.length * 0.5 + 0.3 : 0);
   const value = text(d.value, {
     x: 12,
     y: 66,
-    size: d.value.length > 5 ? 24 : 30,
+    size: Math.min(30, Math.floor(104 / (width * 0.68))),
     weight: 800,
     anchor: "start",
     suffix: d.unit,

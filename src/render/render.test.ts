@@ -29,6 +29,10 @@ describe("wrapText", () => {
     expect(wrapText("mail.example.de", 11, 2)).toEqual(["mail.", "example.de"]);
   });
 
+  it("hyphenates single long words", () => {
+    expect(wrapText("Audiobookshelf", 12, 3)).toEqual(["Audiobooksh-", "elf"]);
+  });
+
   it("ends overflowing text with an ellipsis", () => {
     expect(wrapText("mail.example-server.de", 11, 2)).toEqual(["mail.", "example-…"]);
     expect(wrapText("Grafana Dashboard Production", 11, 2)).toEqual(["Grafana", "Dashboard…"]);

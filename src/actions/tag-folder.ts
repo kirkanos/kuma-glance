@@ -1,10 +1,18 @@
-import streamDeck, { action, type KeyAction, type KeyDownEvent, SingletonAction, type WillAppearEvent } from "@elgato/streamdeck";
+import streamDeck, {
+  action,
+  type KeyAction,
+  type KeyDownEvent,
+  SingletonAction,
+  type WillAppearEvent,
+  type WillDisappearEvent,
+} from "@elgato/streamdeck";
 import type { JsonObject } from "@elgato/utils";
 import { PLUGIN_ID } from "../config";
 import { kuma } from "../kuma/service";
 import { backKey, emptyKey, monitorKey, nextPageKey } from "../render/keys";
 import { displayValue } from "../render/values";
 import { layoutSlots, openFolders, type SlotContent } from "../tag-folder";
+import { showImage, updates } from "../throttle";
 import { unavailableImage } from "./monitor";
 
 /**
@@ -15,8 +23,15 @@ import { unavailableImage } from "./monitor";
  */
 @action({ UUID: `${PLUGIN_ID}.tag-slot` })
 export class TagSlotAction extends SingletonAction {
-  override onWillAppear(ev: WillAppearEvent): Promise<void> {
-    return this.refresh(ev.action.device.id);
+  override async onWillAppear(ev: WillAppearEvent): Promise<void> {
+    if (ev.action.isKey()) {
+      await ev.action.setTitle("");
+    }
+    await this.refresh(ev.action.device.id);
+  }
+
+  override onWillDisappear(ev: WillDisappearEvent): void {
+    updates.forget(ev.action.id);
   }
 
   override async onKeyDown(ev: KeyDownEvent): Promise<void> {
@@ -71,25 +86,23 @@ export class TagSlotAction extends SingletonAction {
 }
 
 async function render(slot: KeyAction<JsonObject>, content: SlotContent): Promise<void> {
-  await slot.setTitle("");
-
   if (content.kind === "next") {
-    await slot.setImage(nextPageKey(content.page, content.pageCount));
+    showImage(slot, nextPageKey(content.page, content.pageCount));
     return;
   }
   if (content.kind === "empty") {
-    await slot.setImage(emptyKey());
+    showImage(slot, emptyKey());
     return;
   }
 
   const unavailable = unavailableImage(content.monitorId);
   const monitor = kuma.monitor(content.monitorId);
   if (unavailable || !monitor) {
-    await slot.setImage(unavailable);
+    showImage(slot, unavailable);
     return;
   }
   const { caption: _caption, ...value } = displayValue(monitor, "ping");
-  await slot.setImage(monitorKey({ name: monitor.name, ...value, beats: monitor.beats, compact: true }));
+  showImage(slot, monitorKey({ name: monitor.name, ...value, beats: monitor.beats, compact: true }));
 }
 
 /** Back key inside a tag folder: returns to the previous profile. */

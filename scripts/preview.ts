@@ -3,6 +3,7 @@
  * from the real key and dial renderers, with sample monitors:
  *   docs/preview.png           overview (also the Marketplace thumbnail)
  *   docs/gallery/*.png         gallery images
+ *   docs/icon/icon-<size>.png  plugin icon (assets/icon.svg) as PNG
  *
  * Usage: npm run preview
  */
@@ -175,3 +176,12 @@ write("gallery/1-overview.png", overview());
 write("gallery/2-tag-folder.png", tagFolder());
 write("gallery/3-states.png", states());
 write("gallery/4-dials.png", dials());
+
+// Plugin icon as PNG in common sizes (e.g. for the Marketplace listing).
+const iconSvg = fs.readFileSync(path.resolve(import.meta.dirname, "..", "assets", "icon.svg"));
+for (const size of [256, 512, 1024]) {
+  const out = path.join(docs, "icon", `icon-${size}.png`);
+  fs.mkdirSync(path.dirname(out), { recursive: true });
+  fs.writeFileSync(out, new Resvg(iconSvg, { fitTo: { mode: "width", value: size } }).render().asPng());
+  console.log(`wrote ${path.relative(process.cwd(), out)}`);
+}

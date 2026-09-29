@@ -58,10 +58,11 @@ Stream Deck, Stream Deck +, Stream Deck XL, Stream Deck Mini, Stream Deck Neo, S
 
 ## Assets
 
-All images are 1920 × 960 PNG, rendered from the real key and dial renderers with `npm run preview`.
+Gallery images are 1920 × 960 PNG, rendered from the real key and dial renderers with `npm run preview`.
 
 | Use | File |
 | --- | --- |
+| Icon (PNG, transparent) | [icon/icon-256.png](icon/icon-256.png), [icon/icon-512.png](icon/icon-512.png), [icon/icon-1024.png](icon/icon-1024.png) |
 | Thumbnail | [gallery/1-overview.png](gallery/1-overview.png) |
 | Gallery 1 | [gallery/1-overview.png](gallery/1-overview.png) |
 | Gallery 2 | [gallery/2-tag-folder.png](gallery/2-tag-folder.png) |

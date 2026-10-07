@@ -114,11 +114,13 @@ export function tagSummaryKey(tagName: string, counts: TagCounts): string {
     ? [counts.down, "down"]
     : counts.total === 0
       ? [0, "monitors"]
-      : [counts.up, counts.up === counts.total ? "all up" : `of ${counts.total}`];
+      : // All up: the full green ring says it, the number stands alone.
+        [counts.up, counts.up === counts.total ? "" : `of ${counts.total}`];
 
-  const center =
-    text(String(number), { x: cx, y: cy + 7, size: 28, weight: 800 }) +
-    text(label, { x: cx, y: cy + 22, size: 11, weight: 600, opacity: 0.75 });
+  const center = label
+    ? text(String(number), { x: cx, y: cy + 7, size: 28, weight: 800 }) +
+      text(label, { x: cx, y: cy + 22, size: 11, weight: 600, opacity: 0.75 })
+    : text(String(number), { x: cx, y: cy + 10, size: 28, weight: 800 });
 
   return toDataUrl(svg(S, S, bg + header + ring + center));
 }

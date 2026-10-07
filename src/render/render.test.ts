@@ -91,7 +91,8 @@ describe("images", () => {
 
   it("draws a full ring when all monitors are up", () => {
     const svg = decode(tagSummaryKey("Service", { up: 3, down: 0, other: 0, total: 3 }));
-    expect(svg).toContain("all up");
+    expect(svg).toContain(">3<");
+    expect(svg).not.toContain("all up");
     expect(svg).not.toContain("<path");
   });
 });
